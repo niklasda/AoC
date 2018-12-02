@@ -24,10 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AoC.Common\AoC.Common.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="Files\day1.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
