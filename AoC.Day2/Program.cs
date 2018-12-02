@@ -1,14 +1,14 @@
 ﻿using System;
-using AoC.Day1.Interfaces;
-using AoC.Day1.Services;
+using AoC.Day2.Interfaces;
+using AoC.Day2.Services;
 
-namespace AoC.Day1
+namespace AoC.Day2
 {
     public class Program
     {
         private static void Main()
         {
-            const string day = "day1";
+            const string day = "day2";
             ICalculationService calc = new CalculationService(day);
             Console.WriteLine(day);
 

@@ -68,9 +68,10 @@ namespace AoC.Day1.Services
             }
         }
 
-        private IEnumerable<int> Duplicates(IEnumerable<int> seq, int segmentLength)
+        private IEnumerable<int> Duplicates(IList<int> seq, int segmentLength)
         {
             var newSeq = seq.Skip(seq.Count() - segmentLength).Take(segmentLength).Concat(seq.Take(seq.Count() - segmentLength));
+
             var dups = newSeq.GroupBy(x => x)
                 .Where(g => g.Count() > 1)
                 .Select(y => y.Key);

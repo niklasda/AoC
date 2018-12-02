@@ -6,6 +6,7 @@
     <StartupObject></StartupObject>
     <LangVersion>latest</LangVersion>
     <Authors>NiDa</Authors>
+    <Company>NiDa</Company>
     <Product>AoC</Product>
   </PropertyGroup>
 
@@ -28,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Files\day1.txt">
+    <None Update="Files\day2.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
