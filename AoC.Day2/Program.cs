@@ -4,7 +4,7 @@ using AoC.Day2.Services;
 
 namespace AoC.Day2
 {
-    public class Program
+    public static class Program
     {
         private static void Main()
         {
@@ -24,7 +24,6 @@ namespace AoC.Day2
 
             Console.WriteLine("------------- Press any other key to close");
             Console.ReadKey();
-
         }
     }
 }

@@ -6,18 +6,16 @@ namespace AoC.Day2.Services
 {
     public class CalculationService : ICalculationService
     {
-        private readonly string _day;
+        private readonly string[] _lines;
 
         public CalculationService(string day)
         {
-            _day = day;
+            _lines = File.ReadAllLines($"Files\\{day}.txt");
         }
 
         public string DoPart1()
         {
-            var lines = File.ReadAllLines($"Files\\{_day}.txt");
-
-            var sum = CheckSum(lines);
+            var sum = CheckSum(_lines);
 
             return sum.ToString();
         }
@@ -46,9 +44,7 @@ namespace AoC.Day2.Services
 
         public string DoPart2()
         {
-            var lines = File.ReadAllLines($"Files\\{_day}.txt");
-
-            var diffComm = FindOneDiffers(lines);
+            var diffComm = FindOneDiffers(_lines);
 
             return diffComm;
         }

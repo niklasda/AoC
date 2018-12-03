@@ -8,26 +8,23 @@ namespace AoC.Day1.Services
 {
     public class CalculationService : ICalculationService
     {
-        private readonly string _day;
+        private readonly string[] _lines;
 
         public CalculationService(string day)
         {
-            _day = day;
+            _lines = File.ReadAllLines($"Files\\{day}.txt");
         }
 
         public string DoPart1()
         {
-            var lines = File.ReadAllLines($"Files\\{_day}.txt");
-
-            var sum = lines.Sum(int.Parse);
+            var sum = _lines.Sum(int.Parse);
 
             return sum.ToString();
         }
 
         public string DoPart2()
         {
-            var lines = File.ReadAllLines($"Files\\{_day}.txt");
-            var intLines = lines.Select(int.Parse).ToList();
+            var intLines = _lines.Select(int.Parse).ToList();
             int segmentLength = intLines.Count;
 
             bool hasDuplicate = false;
