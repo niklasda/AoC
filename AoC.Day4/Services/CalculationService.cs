@@ -88,9 +88,15 @@ namespace AoC.Day4.Services
 
         public string DoPart1()
         {
-            Entry mx = _entries.OrderByDescending(e => e.TotalSleepMinutes).First();
+            IGrouping<int, Entry> sleepGroup = _entries.GroupBy(e => e.Id).OrderByDescending(e => e.Sum(y => y.TotalSleepMinutes)).First();
 
-            return mx.TotalSleepMinutes.ToString();
+            IList<Entry> list = sleepGroup.Select(s => s).ToList();
+            IList<int> minutes = list.SelectMany(l => l.SleepMinutes).ToList();
+            var topRankingMinute = minutes.GroupBy(e => e).OrderByDescending(e => e.Count()).First().Key;
+            var guardId = sleepGroup.Key;
+
+            Console.WriteLine($"#{guardId} - {topRankingMinute}");
+            return (topRankingMinute * guardId).ToString();
         }
 
         public string DoPart2()

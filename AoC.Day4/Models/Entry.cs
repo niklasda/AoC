@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AoC.Day4.Models
 {
@@ -12,25 +13,48 @@ namespace AoC.Day4.Models
 
         public DateTime EntryDate { get; set; }
         public int Id { get; set; }
-        public IList<Event> Events { get; set; }
+        public IList<Event> Events { get; }
 
         public int TotalSleepMinutes
         {
             get
             {
                 int accMin = 0;
-                DateTime _tempSleepStart = DateTime.MinValue;
+                DateTime tempSleepStart = DateTime.MinValue;
                 foreach (var evt in Events)
                 {
                     if (evt.EventType == EventType.FallAsleep)
                     {
-                        _tempSleepStart = evt.EventTime;
+                        tempSleepStart = evt.EventTime;
                     }
                     else if (evt.EventType == EventType.WakeUp)
                     {
-                        accMin += (int)(evt.EventTime - _tempSleepStart).TotalMinutes;
-                        _tempSleepStart = DateTime.MinValue;
+                        accMin += (int)(evt.EventTime - tempSleepStart).TotalMinutes;
+                        tempSleepStart = DateTime.MinValue;
 
+                    }
+                }
+
+                return accMin;
+            }
+        }
+
+        public IList<int> SleepMinutes
+        {
+            get
+            {
+                List<int> accMin = new List<int>();
+                DateTime tempSleepStart = DateTime.MinValue;
+                foreach (var evt in Events)
+                {
+                    if (evt.EventType == EventType.FallAsleep)
+                    {
+                        tempSleepStart = evt.EventTime;
+                    }
+                    else if (evt.EventType == EventType.WakeUp)
+                    {
+                        accMin.AddRange(Enumerable.Range(tempSleepStart.Minute, (int)(evt.EventTime - tempSleepStart).TotalMinutes));
+                        tempSleepStart = DateTime.MinValue;
                     }
                 }
 
