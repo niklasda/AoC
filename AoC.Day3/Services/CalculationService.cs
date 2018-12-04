@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using AoC.Day3.Interfaces;
+using AoC.Common.Interfaces;
 using AoC.Day3.Models;
 
 namespace AoC.Day3.Services

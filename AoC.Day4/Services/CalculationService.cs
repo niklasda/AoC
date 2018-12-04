@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using AoC.Day4.Interfaces;
+using AoC.Common.Interfaces;
 using AoC.Day4.Models;
 
 namespace AoC.Day4.Services
@@ -103,19 +103,21 @@ namespace AoC.Day4.Services
         {
             var sleepGroups = _entries.GroupBy(e => e.Id);
 
-           // var list = sleepGroups.Select(s => s).ToList();
-
             foreach (var grp in sleepGroups)
             {
                 var guardId = grp.Key;
 
-                List<int> minutes = grp.SelectMany(l => l.SleepMinutes).ToList();
-                if (minutes.Count > 0)
+                var groupLead = grp.SelectMany(l => l.SleepMinutes).GroupBy(e => e).OrderByDescending(e => e.Count()).FirstOrDefault();
+                if (groupLead != null)
                 {
-                    var topRankingMinute = minutes.GroupBy(e => e).OrderByDescending(e => e.Count()).First().Key;
-                    var topRankingCount = minutes.GroupBy(e => e).OrderByDescending(e => e.Count()).First().Count();
+                    var topRankingMinute = groupLead.Key;
+                    var topRankingCount = groupLead.Count();
 
-                    Console.WriteLine($"#{guardId} - {topRankingMinute} - {topRankingCount} = {guardId * topRankingMinute}");
+                    if (topRankingCount >= 19)
+                    {
+                        Console.WriteLine($"#{guardId} - {topRankingMinute} - {topRankingCount} = {guardId * topRankingMinute}");
+                        return (guardId * topRankingMinute).ToString();
+                    }
                 }
             }
 

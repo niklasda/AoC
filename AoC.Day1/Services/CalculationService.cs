@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using AoC.Day1.Interfaces;
+using AoC.Common.Interfaces;
 
 namespace AoC.Day1.Services
 {

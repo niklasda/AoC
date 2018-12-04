@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using System.Linq;
-using AoC.Day2.Interfaces;
+using AoC.Common.Interfaces;
 
 namespace AoC.Day2.Services
 {

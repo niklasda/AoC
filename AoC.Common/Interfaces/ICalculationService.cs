@@ -1,4 +1,4 @@
-﻿namespace AoC.Day2.Interfaces
+﻿namespace AoC.Common.Interfaces
 {
     public interface ICalculationService
     {
