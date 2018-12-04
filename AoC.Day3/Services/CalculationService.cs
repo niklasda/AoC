@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -37,16 +38,85 @@ namespace AoC.Day3.Services
 
         public string DoPart1()
         {
-            foreach (var c in _claims)
-            {
+            IList<Rectangle> intersections = new List<Rectangle>();
 
+            var orderedClaims = _claims.OrderBy(c => c.Id).ToList();
+            foreach (var c1 in orderedClaims)
+            {
+                foreach (var c2 in orderedClaims.Where(c => c.Id > c1.Id))
+                {
+                    if (c1.Rect.IntersectsWith(c2.Rect))
+                    {
+                        var c0 = Rectangle.Intersect(c1.Rect, c2.Rect);
+
+                        if (!intersections.Any(i => i.Contains(c0)))
+                        {
+                            Console.Write(".");
+
+                            intersections.Add(c0);
+                        }
+                    }
+                }
             }
-            return "";
+
+            Console.WriteLine();
+
+            int count = NbrOfUniquePointIn(intersections);
+            return count.ToString();
+        }
+
+        private int NbrOfUniquePointIn(IList<Rectangle> intersections)
+        {
+            IList<Point> points = new List<Point>();
+            foreach (var rect in intersections)
+            {
+                for (int x = rect.X; x < rect.Right; x++)
+                {
+                    for (int y = rect.Y; y < rect.Bottom; y++)
+                    {
+                        var p = new Point(x, y);
+                        if (!points.Contains(p))
+                        {
+                            points.Add(p);
+                        }
+                    }
+                }
+            }
+
+            return points.Count;
         }
 
         public string DoPart2()
         {
-            return "";
+            IList<int> intersections = new List<int>();
+
+            var orderedClaims = _claims.OrderBy(c => c.Id).ToList();
+            foreach (var c1 in orderedClaims)
+            {
+                foreach (var c2 in orderedClaims.Where(c => c.Id > c1.Id))
+                {
+                    if (c1.Rect.IntersectsWith(c2.Rect))
+                    {
+                         Console.Write(".");
+
+                        if (!intersections.Contains(c1.Id))
+                        {
+                            intersections.Add(c1.Id);
+                        }
+
+                        if (!intersections.Contains(c2.Id))
+                        {
+                            intersections.Add(c2.Id);
+                        }
+                    }
+                }
+            }
+
+            Console.WriteLine();
+
+            var nones = orderedClaims.Select(c => c.Id).Except(intersections);
+
+            return nones.Single().ToString();
         }
     }
 }
