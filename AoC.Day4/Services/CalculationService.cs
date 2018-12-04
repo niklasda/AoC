@@ -101,7 +101,30 @@ namespace AoC.Day4.Services
 
         public string DoPart2()
         {
-            return "";
+            var sleepGroups = _entries.GroupBy(e => e.Id);
+
+            var list = sleepGroups.Select(s => s).ToList();
+
+            foreach (var grp in list)
+            {
+                var guardId = grp.Key;
+
+                var minutes = grp.SelectMany(l => l.SleepMinutes).ToList();
+                if (minutes.Count > 0)
+                {
+                    var topRankingMinute = minutes.GroupBy(e => e).OrderByDescending(e => e.Count()).First().Key;
+                    var topRankingCount = minutes.GroupBy(e => e).OrderByDescending(e => e.Count()).First().Sum();
+
+                    Console.WriteLine($"#{guardId} - {topRankingMinute} - {topRankingCount} = {guardId * topRankingMinute}");
+                }
+            }
+
+            /* #3203 - 31 - 310 = 99293
+               #733 - 48 - 816 = 35184
+               #113 - 28 - 140 = 3164
+            */
+
+            return 0.ToString();
         }
     }
 }
