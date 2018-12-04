@@ -21,12 +21,14 @@ namespace AoC.Day3.Services
         {
             var parts = line.Split(' ');
 
-            return new Claim
+            var c = new Claim
             {
                 Id = int.Parse(parts[0].Replace("#", "")),
                 Position = new Point(int.Parse(parts[2].Split(",")[0]), int.Parse(parts[2].Split(",")[1].Replace(":", ""))),
-                Area = new Size(int.Parse(parts[3].Split("x")[0]), int.Parse(parts[3].Split("x")[1]))
+                Area = new Size(int.Parse(parts[3].Split("x")[0]), int.Parse(parts[3].Split("x")[1])),
             };
+            c.Rect = new Rectangle(c.Position, c.Area);
+            return c;
         }
 
         /* #1 @ 1,3: 4x4

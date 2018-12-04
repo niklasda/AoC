@@ -7,5 +7,6 @@ namespace AoC.Day3.Models
         public int Id { get; set; }
         public Point Position { get; set; }
         public Size Area { get; set; }
+        public Rectangle Rect { get; set; } 
     }
 }
