@@ -103,27 +103,28 @@ namespace AoC.Day4.Services
         {
             var sleepGroups = _entries.GroupBy(e => e.Id);
 
-            var list = sleepGroups.Select(s => s).ToList();
+           // var list = sleepGroups.Select(s => s).ToList();
 
-            foreach (var grp in list)
+            foreach (var grp in sleepGroups)
             {
                 var guardId = grp.Key;
 
-                var minutes = grp.SelectMany(l => l.SleepMinutes).ToList();
+                List<int> minutes = grp.SelectMany(l => l.SleepMinutes).ToList();
                 if (minutes.Count > 0)
                 {
                     var topRankingMinute = minutes.GroupBy(e => e).OrderByDescending(e => e.Count()).First().Key;
-                    var topRankingCount = minutes.GroupBy(e => e).OrderByDescending(e => e.Count()).First().Sum();
+                    var topRankingCount = minutes.GroupBy(e => e).OrderByDescending(e => e.Count()).First().Count();
 
                     Console.WriteLine($"#{guardId} - {topRankingMinute} - {topRankingCount} = {guardId * topRankingMinute}");
                 }
             }
 
-            /* #3203 - 31 - 310 = 99293
-               #733 - 48 - 816 = 35184
-               #113 - 28 - 140 = 3164
+            /* #859 - 43 - 12 = 36937
+               #2383 - 29 - 7 = 69107
+               #997 - 38 - 19 = 37886
+               #1367 - 43 - 12 = 58781
             */
-
+            
             return 0.ToString();
         }
     }
