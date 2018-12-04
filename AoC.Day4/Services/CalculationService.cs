@@ -14,11 +14,11 @@ namespace AoC.Day4.Services
         public CalculationService(string day)
         {
             string[] lines = File.ReadAllLines($"Files\\{day}.txt");
-
-            _entries = Parse(lines);
+            var orderedLines = lines.OrderBy(l => l);
+            _entries = Parse(orderedLines);
         }
 
-        private IList<Entry> Parse(string[] lines)
+        private IList<Entry> Parse(IEnumerable<string> lines)
         {
             IList<Entry> entries = new List<Entry>();
 
@@ -88,11 +88,9 @@ namespace AoC.Day4.Services
 
         public string DoPart1()
         {
-            foreach (var e in _entries)
-            {
+            Entry mx = _entries.OrderByDescending(e => e.TotalSleepMinutes).First();
 
-            }
-            return "";
+            return mx.TotalSleepMinutes.ToString();
         }
 
         public string DoPart2()
