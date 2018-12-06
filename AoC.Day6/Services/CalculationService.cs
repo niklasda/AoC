@@ -1,38 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using AoC.Common.Interfaces;
 
 namespace AoC.Day6.Services
 {
     public class CalculationService : ICalculationService
     {
-        private readonly string _line;
+        private readonly Point[] _points;
 
         public CalculationService(string day)
         {
-            _line = File.ReadAllText($"Files\\{day}.txt");
+            var lines = File.ReadAllLines($"Files\\{day}.txt");
+
+            _points = lines.Select(l => new Point(int.Parse(l.Split(',')[0]), int.Parse(l.Split(',')[1]))).ToArray();
         }
 
         public string DoPart1()
         {
-            StringBuilder sb = new StringBuilder(_line);
-            Console.WriteLine($"Original: {sb.Length}");
+            Console.WriteLine($"Original: {_points.Length}");
 
 
-            Console.WriteLine($"Final: {sb.Length}");
-
-            return sb.Length.ToString();
+            return 0.ToString();
         }
 
         public string DoPart2()
         {
-            var results = new Dictionary<string, int>();
 
-
-            return results.Values.Min().ToString();
+            return 0.ToString();
         }
     }
 }
