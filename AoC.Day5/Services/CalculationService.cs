@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using AoC.Common.Interfaces;
 
@@ -19,6 +21,15 @@ namespace AoC.Day5.Services
             StringBuilder sb = new StringBuilder(_line);
             Console.WriteLine($"Original: {sb.Length}");
 
+            sb = Reduce(sb);
+
+            Console.WriteLine($"Final: {sb.Length}");
+
+            return sb.Length.ToString();
+        }
+
+        private StringBuilder Reduce(StringBuilder sb)
+        {
             bool isFinished;
             do
             {
@@ -33,20 +44,35 @@ namespace AoC.Day5.Services
                     }
                 }
 
-                Console.WriteLine($"Remaining: {sb.Length}");
+                Console.Write(".");
 
                 int lengthAfter = sb.Length;
                 isFinished = lengthBefore == lengthAfter;
             } while (!isFinished);
 
-            Console.WriteLine($"Final: {sb.Length}");
-
-            return sb.Length.ToString();
+            return sb;
         }
 
         public string DoPart2()
         {
-            return 0.ToString();
+            var results = new Dictionary<string, int>();
+
+            string[] chars = _line.Select(c => c.ToString().ToLower()).Distinct().OrderBy(c => c).ToArray();
+
+            Console.WriteLine($"Distinct: {string.Join(',', chars)}");
+
+            foreach (var c in chars)
+            {
+                StringBuilder sb = new StringBuilder(_line);
+                sb.Replace(c, "").Replace(c.ToUpper(), "");
+                sb = Reduce(sb);
+
+                Console.WriteLine($"For {c}: {sb.Length}");
+
+                results.Add(c, sb.Length);
+            }
+
+            return results.Values.Min().ToString();
         }
     }
 }
